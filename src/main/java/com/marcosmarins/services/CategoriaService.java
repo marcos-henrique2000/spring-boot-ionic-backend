@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.marcosmarins.domain.Categoria;
+import com.marcosmarins.dto.CategoriaDTO;
 import com.marcosmarins.repositories.CategoriaRepository;
 import com.marcosmarins.services.exception.DataIntegrityException;
 import com.marcosmarins.services.exception.ObjectNotFoundException;
@@ -53,5 +54,9 @@ public class CategoriaService {
 	public Page<Categoria> findPage(Integer page, Integer linePerPage, String orderBy, String direction){
 		PageRequest pageRequest = PageRequest.of(page, linePerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
+	}
+	
+	public Categoria fromDTO(CategoriaDTO objDTO) {
+		return new Categoria(objDTO.getId(), objDTO.getNome());
 	}
 }
