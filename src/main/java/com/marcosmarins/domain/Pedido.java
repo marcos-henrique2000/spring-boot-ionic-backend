@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.hibernate.event.spi.PreCollectionRecreateEvent;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
@@ -52,7 +54,16 @@ public class Pedido implements Serializable {
 		this.cliente = cliente;
 		this.enderecoDeEntrega = enderecoDeEntrega;
 	}
-
+	
+	public double getValorTotal() {
+		double soma = 0;
+		for(ItemPedido ip : itens) {
+			soma += ip.getSubTotal();
+		}
+		
+		return soma;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
